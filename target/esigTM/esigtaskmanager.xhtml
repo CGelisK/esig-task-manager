@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+    <link rel="shortcut icon" type="image/x-icon"
+          href="#{resource['images/esig.ico']}"/>
+    <h:outputStylesheet library="css" name="style.css"/>
+    <title>esigTM</title>
+</h:head>
+<h:body>
+    <!-- HEADER -->
+    <div id="header" class="center">
+        <h:graphicImage id="logo" library="images" name="esig.png"/>
+    </div>
+
+    <!-- FORMULARIO -->
+    <div class="formulario center">
+        <h:form id="form">
+            <h:panelGrid>
+                <p:outputLabel value="Tarefa:"/>
+                <p:inputText value="#{tarefaBean.tarefa.titulo}"
+                             indicateRequired="true"
+                             required="true"
+                             requiredMessage="Campo obrigatório."/>
+
+                <p:outputLabel value="Descrição:"/>
+                <p:inputText value="#{tarefaBean.tarefa.descricao}"
+                             indicateRequired="true"
+                             required="true"
+                             requiredMessage="Campo obrigatório."/>
+
+                <p:outputLabel for="@next" value="Responsável"/>
+                <p:selectOneMenu id="responsavel" value="#{tarefaBean.tarefa.responsavel}"
+                                 indicateRequired="true"
+                                 required="true"
+                                 requiredMessage="Campo obrigatório.">
+                    <f:selectItem itemLabel="Selecione o Responsável" itemValue=""/>
+                    <f:selectItem itemLabel="Caio" itemValue="Caio"/>
+                    <f:selectItem itemLabel="Fábia" itemValue="Fábia"/>
+                    <f:selectItem itemLabel="Antonio" itemValue="Antonio"/>
+                    <f:selectItem itemLabel="Carlos" itemValue="Carlos"/>
+                    <f:selectItem itemLabel="José" itemValue="José"/>
+                </p:selectOneMenu>
+
+                <p:outputLabel for="@next" value="Prioridade"/>
+                <p:selectOneMenu id="prioridade" value="#{tarefaBean.tarefa.prioridade}"
+                                 indicateRequired="true"
+                                 required="true"
+                                 requiredMessage="Campo obrigatório.">
+                    <f:selectItem itemLabel="Selecione a Prioridade" itemValue=""/>
+                    <f:selectItem itemLabel="Baixa" itemValue="Baixa"/>
+                    <f:selectItem itemLabel="Média" itemValue="Média"/>
+                    <f:selectItem itemLabel="Alta" itemValue="Alta"/>
+                </p:selectOneMenu>
+
+                <p:outputLabel value="Data:"/>
+                <p:inputText type="date" value="#{tarefaBean.tarefa.data}"
+                             indicateRequired="true"
+                             required="true"
+                             requiredMessage="Campo obrigatório."/>
+            </h:panelGrid>
+
+            <h:panelGrid styleClass="center">
+                <p:commandButton id="btn-enviar" value="Cadastrar"
+                                 action="#{tarefaBean.addTarefa}" update="form table"/>
+            </h:panelGrid>
+        </h:form>
+    </div>
+    <!-- TABELA -->
+    <h:panelGroup styleClass="center">
+        <p:dataTable id="table"
+                     value="#{tarefaBean.tarefas}" var="e">
+            <p:column headerText="Tarefa">#{e.titulo}</p:column>
+            <p:column headerText="Descrição">#{e.descricao}</p:column>
+            <p:column headerText="Responsável">#{e.responsavel}</p:column>
+            <p:column headerText="Prioridade">#{e.prioridade}</p:column>
+            <p:column headerText="Data">#{e.data}</p:column>
+        </p:dataTable>
+    </h:panelGroup>
+</h:body>
+</html>
